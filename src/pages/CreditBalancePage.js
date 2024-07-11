@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBalances, refreshBalances } from '../services/api';
+import { getBalances, refreshBalances } from '../api/profile';
 
 const CreditBalancePage = () => {
   const [balances, setBalances] = useState([]);

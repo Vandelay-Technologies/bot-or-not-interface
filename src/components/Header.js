@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
-import CreditBalanceIcon from './CreditBalanceIcon';
+import CreditBalanceButton from './CreditBalanceButton';
+import { UserContext } from '../context/UserContext';
 
-const Header = ({ user, balance }) => {
+const Header = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
@@ -22,7 +25,7 @@ const Header = ({ user, balance }) => {
             ) : (
               <>
                 <li className="nav-item"><Link className="nav-link" to="/profile">{user.username}</Link></li>
-                <li className="nav-item"><CreditBalanceIcon balance={balance} /></li>
+                <li className="nav-item"><CreditBalanceButton /></li>
                 <li className="nav-item"><LogoutButton /></li>
               </>
             )}

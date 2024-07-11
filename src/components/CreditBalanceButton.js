@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CreditBalanceIcon = ({ balance }) => {
+const CreditBalanceButton = () => {
   return (
     <Link className="nav-link" to="/credit-balance">
-      {balance} Credits
+      Credits
     </Link>
   );
 };
 
-export default CreditBalanceIcon;
+export default CreditBalanceButton;

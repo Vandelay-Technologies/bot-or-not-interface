@@ -1,8 +1,10 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
-const HomePage = ({ user, balance }) => {
+const HomePage = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
       <h1>Home</h1>

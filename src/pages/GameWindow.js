@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { startGame } from '../services/api';
+import { startGame } from '../api/game';
 
-const GameWindow = ({ user }) => {
+const GameWindow = () => {
   const [selectedToken, setSelectedToken] = useState('');
   const [gameStarted, setGameStarted] = useState(false);
 

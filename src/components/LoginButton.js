@@ -1,11 +1,21 @@
-import React from 'react';
-import { loginWithWallet } from '../services/api';
+import React, { useContext } from 'react';
+import { loginWithWallet } from '../api/auth';
+import { getProfile, getBalances } from '../api/profile';
+import { UserContext } from '../context/UserContext';
 
 const LoginButton = () => {
+  const { setUser, setBalances } = useContext(UserContext);
+
   const handleLogin = async () => {
     try {
-      await loginWithWallet();
-      window.location.reload();
+      const success = await loginWithWallet();
+      if (success) {
+        const profile = await getProfile();
+        setUser(profile);
+        const balances = await getBalances();
+        setBalances(balances);
+        window.location.reload();
+      }
     } catch (error) {
       console.error('Login failed', error);
     }

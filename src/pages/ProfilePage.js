@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getProfile, updateProfile } from '../services/api';
+import { getProfile, updateProfile } from '../api/profile';
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState({ walletAddress: '', username: '' });
