@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 
 const CreditBalanceIcon = ({ balance }) => {
   return (
-    <Link to="/credit-balance">
-      <div className="balance-icon">
-        {balance} Credits
-      </div>
+    <Link className="nav-link" to="/credit-balance">
+      {balance} Credits
     </Link>
   );
 };
