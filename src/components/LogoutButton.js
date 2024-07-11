@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const LogoutButton = () => {
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.reload();
-  };
+  const { logout } = useContext(UserContext);
 
-  return <button className="btn btn-secondary" onClick={handleLogout}>Logout</button>;
+  return <button className="btn btn-secondary" onClick={logout}>Logout</button>;
 };
 
 export default LogoutButton;
