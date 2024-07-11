@@ -7,7 +7,7 @@ import CreditBalanceIcon from './CreditBalanceIcon';
 const Header = ({ user, balance }) => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
+      <div className="container">
         <Link className="nav-link" to="/">BOT OR NOT</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

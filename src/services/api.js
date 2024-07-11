@@ -17,9 +17,16 @@ export const loginWithWallet = async () => {
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0];
 
-    const response = await axios.post(`${API_URL}/auth/login`, { walletAddress });
+    // Request a message to sign
+    const { data: { message } } = await axios.post(`${API_URL}/auth/request-signature`, { walletAddress });
+
+    // Sign the message
+    const signature = await web3.eth.personal.sign(message, walletAddress);
+
+    // Verify the signature and get JWT token
+    const response = await axios.post(`${API_URL}/auth/login`, { walletAddress, signature });
     if (response.data.success) {
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
       return true;
     }
   } catch (error) {
@@ -29,49 +36,49 @@ export const loginWithWallet = async () => {
 };
 
 export const getProfile = async () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
   const response = await axios.get(`${API_URL}/profile`, {
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   });
   return response.data;
 };
 
 export const updateProfile = async (profile) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
   await axios.put(`${API_URL}/profile`, profile, {
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   });
 };
 
 export const getBalances = async () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
   const response = await axios.get(`${API_URL}/balances`, {
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   });
   return response.data;
 };
 
 export const refreshBalances = async () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
   const response = await axios.post(`${API_URL}/balances/refresh`, {}, {
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   });
   return response.data;
 };
 
 export const startGame = async (token) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
   const response = await axios.post(`${API_URL}/game/start`, { token }, {
     headers: {
-      Authorization: `Bearer ${user.token}`
+      Authorization: `Bearer ${token}`
     }
   });
   return response.data.success;

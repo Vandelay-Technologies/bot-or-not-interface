@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -6,11 +6,18 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import CreditBalancePage from './pages/CreditBalancePage';
 import GameWindow from './pages/GameWindow';
+import { getProfile } from './services/api';
 
 function App() {
-  // temporary vars
-  const user = null;
-  const balance = null;
+  const [user, setUser] = useState(null);
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      getProfile().then(profile => setUser(profile)).catch(() => localStorage.removeItem('token'));
+    }
+  }, []);
 
   return (
     <Router>
