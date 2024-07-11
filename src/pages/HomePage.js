@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom';
 const HomePage = ({ user, balance }) => {
   return (
     <div>
-      <Header user={user} balance={balance} />
-      <main>
-        {!user ? (
-          <div>Please log in to start playing.</div>
-        ) : (
-          <Link to="/game">
-            <button>Start Game</button>
-          </Link>
-        )}
-      </main>
+      <h1>Home</h1>
+      {!user ? (
+        <div>Please log in to start playing.</div>
+      ) : (
+        <Link to="/game">
+          <button>Start Game</button>
+        </Link>
+      )}
     </div>
   );
 };
