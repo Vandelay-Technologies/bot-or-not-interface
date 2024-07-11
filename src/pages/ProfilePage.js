@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { getProfile, updateProfile } from '../api/profile';
+import React, { useEffect, useContext } from 'react';
+import { getUser, updateUser } from '../api/user';
+import { UserContext } from '../context/UserContext';
 
 const ProfilePage = () => {
-  const [profile, setProfile] = useState({ walletAddress: '', username: '' });
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    async function fetchProfile() {
-      const profileData = await getProfile();
-      setProfile(profileData);
+    async function refreshUser() {
+      const userData = await getUser();
+      setUser(userData);
     }
 
-    fetchProfile();
+    refreshUser();
   }, []);
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateProfile(profile);
+    await updateUser(user);
     alert('Profile updated successfully');
   };
 
@@ -29,11 +30,11 @@ const ProfilePage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Wallet Address</label>
-          <input type="text" name="walletAddress" value={profile.walletAddress} readOnly />
+          <input type="text" name="walletAddress" value={user.walletAddress} readOnly />
         </div>
         <div>
           <label>Username</label>
-          <input type="text" name="username" value={profile.username} onChange={handleChange} />
+          <input type="text" name="username" value={user.username} onChange={handleChange} />
         </div>
         <button type="submit">Update Profile</button>
       </form>
