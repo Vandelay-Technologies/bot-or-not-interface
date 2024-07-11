@@ -9,20 +9,26 @@ import GameWindow from './pages/GameWindow';
 
 function App() {
   // temporary vars
-  const user = { username: 'player' };
-  const balance = 1000;
+  const user = null;
+  const balance = null;
 
   return (
     <Router>
       <div>
         <Header user={user} balance={balance} />
         <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/credit-balance" element={<CreditBalancePage />} />
-            <Route path="/game" element={<GameWindow />} />
-          </Routes>
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              {user ? (
+                <>
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/credit-balance" element={<CreditBalancePage />} />
+                  <Route path="/game" element={<GameWindow />} />
+                </>
+              ) : null}
+            </Routes>
+          </div>
         </main>
       </div>
     </Router>
