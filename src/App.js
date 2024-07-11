@@ -14,18 +14,16 @@ function App() {
     <UserProvider>
       <Router>
         <Header />
-        <main>
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route element={<PrivateRoute />}>
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/credit-balance" element={<CreditBalancePage />} />
-                <Route path="/game" element={<GameWindow />} />
-              </Route>
-            </Routes>
-          </div>
-        </main>
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/credit-balance" element={<CreditBalancePage />} />
+              <Route path="/game" element={<GameWindow />} />
+            </Route>
+          </Routes>
+        </div>
       </Router>
     </UserProvider>
   );
