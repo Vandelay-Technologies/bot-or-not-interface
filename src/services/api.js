@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Web3 from 'web3';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 let web3;
 
@@ -17,7 +17,7 @@ export const loginWithWallet = async () => {
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0];
 
-    const response = await axios.post(`${API_URL}/login`, { walletAddress });
+    const response = await axios.post(`${API_URL}/auth/login`, { walletAddress });
     if (response.data.success) {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       return true;
