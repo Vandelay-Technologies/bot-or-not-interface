@@ -74,9 +74,9 @@ export const refreshBalances = async () => {
   return response.data;
 };
 
-export const startGame = async (token) => {
+export const startGame = async (userToken) => {
   const token = localStorage.getItem('token');
-  const response = await axios.post(`${API_URL}/game/start`, { token }, {
+  const response = await axios.post(`${API_URL}/game/start`, { userToken }, {
     headers: {
       Authorization: `Bearer ${token}`
     }
