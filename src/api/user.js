@@ -1,8 +1,8 @@
 import axiosInstance from './axios';
 
-export const getProfile = async () => {
+export const getUser = async () => {
     const token = localStorage.getItem('token');
-    const response = await axiosInstance.get(`/profile`, {
+    const response = await axiosInstance.get(`/user`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -10,23 +10,13 @@ export const getProfile = async () => {
     return response.data;
 };
 
-export const updateProfile = async (profile) => {
+export const updateUser = async (user) => {
     const token = localStorage.getItem('token');
-    await axiosInstance.put(`/profile`, profile, {
+    await axiosInstance.put(`/user`, user, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
-};
-
-export const getBalances = async () => {
-    const token = localStorage.getItem('token');
-    const response = await axiosInstance.get(`/balances`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return response.data;
 };
 
 export const refreshBalances = async () => {

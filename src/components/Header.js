@@ -24,7 +24,7 @@ const Header = () => {
               <li className="nav-item"><LoginButton /></li>
             ) : (
               <>
-                <li className="nav-item"><Link className="nav-link" to="/profile">{user.username}</Link></li>
+                <li className="nav-item"><Link className="nav-link" to="/profile">{user.username != '' ? user.username : 'anonymous'}</Link></li>
                 <li className="nav-item"><CreditBalanceButton /></li>
                 <li className="nav-item"><LogoutButton /></li>
               </>

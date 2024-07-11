@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { getBalances, refreshBalances } from '../api/profile';
+import React, { useContext } from 'react';
+import { refreshBalances } from '../api/user';
+import { UserContext } from '../context/UserContext';
 
 const CreditBalancePage = () => {
-  const [balances, setBalances] = useState([]);
-
-  useEffect(() => {
-    async function fetchBalances() {
-      const balanceData = await getBalances();
-      setBalances(balanceData);
-    }
-
-    fetchBalances();
-  }, []);
+  const { user, setUser } = useContext(UserContext);
 
   const handleRefresh = async () => {
     const updatedBalances = await refreshBalances();
-    setBalances(updatedBalances);
+    setUser({ ...user, balances: updatedBalances });
   };
 
   return (
     <div>
       <h1>Credit Balance</h1>
       <ul>
-        {balances.map((balance, index) => (
+        {user ? user.balances.map((balance, index) => (
           <li key={index}>
             {balance.token}: {balance.amount}
           </li>
-        ))}
+        )) : null}
       </ul>
       <button onClick={handleRefresh}>Refresh Balances</button>
       <button>Top Up</button>

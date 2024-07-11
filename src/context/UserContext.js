@@ -1,28 +1,30 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getBalances, getProfile } from '../api/profile';
+import { getUser } from '../api/user';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [balances, setBalances] = useState([]);
 
     useEffect(() => {
+        const refreshUserData = async () => {
+            const user = await getUser();
+            setUser(user);
+        }
         const token = localStorage.getItem('token');
 
         if (token) {
-            getProfile()
-                .then(profile => setUser(profile))
-                .catch(() => localStorage.removeItem('token'));
-
-            getBalances()
-                .then(balances => setBalances(balances))
-                .catch(() => localStorage.removeItem('token'));
+            refreshUserData();
         }
     }, []);
 
+    function logout() {
+        localStorage.removeItem('token');
+        setUser(null);
+    }
+
     return (
-        <UserContext.Provider value={{ user, setUser, balances, setBalances }}>
+        <UserContext.Provider value={{ user, setUser, logout }}>
             {children}
         </UserContext.Provider>
     );
